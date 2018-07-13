@@ -1,4 +1,4 @@
-let pacientes = document.querySelectorAll('.paciente');
+var pacientes = document.querySelectorAll('.paciente');
 
 
 for(let i = 0; i < pacientes.length; i++){

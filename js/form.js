@@ -4,24 +4,43 @@ botaoAdicionar.addEventListener('click', (event) => {
     event.preventDefault();
     let form = document.querySelector('#form-adiciona');
     let paciente = dadosPacienteForm(form);    
-    let tabela = montaTr(paciente);
-    let erros = validaPaciente(paciente);
     
+    let erros = validaPaciente(paciente);    
     if(erros.length > 0){
         exibirMensagemErro(erros);
         return;
     }
 
-    let tabelaPacientes = document.querySelector('#tabela-pacientes');    
-    tabelaPacientes.appendChild(tabela);    
+    adicionaPaciente(paciente);   
     form.reset();
     document.querySelector('#mensagem-erro').innerHTML = '';
 });
 
+//monta um JSON com os campos do formulario
+function dadosPacienteForm(form) { 
+
+   let paciente = {
+        nome : form.nome.value,
+        peso : form.peso.value,
+        altura : form.altura.value,
+        gordura : form.gordura.value,
+        imc : calculaImc(form.peso.value, form.altura.value)
+    }
+    return paciente;
+};
+
+//adiciona paciente na tabela
+function adicionaPaciente(paciente){
+    let novaTr = montaTr(paciente);
+    let tabelaPacientes = document.querySelector('#tabela-pacientes');    
+    tabelaPacientes.appendChild(novaTr); 
+}
+
+//monta uma tr
 function montaTr(paciente) {
     
-    let pacienteTr = document.createElement('tr');
-    pacienteTr.classList.add('paciente');
+    let pacienteTr = document.createElement('tr'); // cria uma nova tr
+    pacienteTr.classList.add('paciente'); // adiciona a classe paciente na tr
     
     pacienteTr.appendChild(montaTd(paciente.nome, 'info-nome'));
     pacienteTr.appendChild(montaTd(paciente.peso, 'info-pese'));
@@ -32,15 +51,16 @@ function montaTr(paciente) {
     return pacienteTr;
 };
 
-
+//monta uma td
 function montaTd(dados, classe){
-    let td = document.createElement('td');
-    td.textContent = dados;
-    td.classList.add(classe);
+    let td = document.createElement('td'); //cria uma nova td
+    td.textContent = dados; //adiciona os dados de conteudo na td
+    td.classList.add(classe); //adiciona a classe css na td
 
     return td;
 };
 
+//exibe mensagem de erro quando existe uma
 function exibirMensagemErro(erros){
 
     let ul = document.querySelector('#mensagem-erro');
@@ -54,18 +74,7 @@ function exibirMensagemErro(erros){
 };
 
 
-function dadosPacienteForm(form) {
-
-   let paciente = {
-        nome : form.nome.value,
-        peso : form.peso.value,
-        altura : form.altura.value,
-        gordura : form.gordura.value,
-        imc : calculaImc(form.peso.value, form.altura.value)
-    }
-    return paciente;
-};
-
+//valida os dados do JSON paciente
 function validaPaciente(paciente){
 
     let erros = [];

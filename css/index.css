@@ -146,3 +146,17 @@ button[disabled=disabled], button:disabled {
 	opacity: 0;
 	transition: 0.5s;
 }
+
+#filtro-tabela {
+	width: 25%;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.invisivel {
+	display: none;
+}
+
+.buscar-pacientes {
+	width: 30%;
+}
