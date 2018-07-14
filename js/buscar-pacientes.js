@@ -11,10 +11,6 @@ buscarPacientes.addEventListener('click', function(){
             let resposta = xhr.responseText;
             let pacientes = JSON.parse(resposta);
             pacientes.forEach(function(paciente) {
-                let totalPacientes = document.querySelectorAll('.paciente');
-                if(pacientes.map(paciente)){
-                    console.log('ja tem')
-                }               
                 adicionaPaciente(paciente);
             }); 
         }else {
